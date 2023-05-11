@@ -51,15 +51,23 @@ public class BallController : MonoBehaviour, IPointerDownHandler
                 pointerDirection.z = 0;
 
                 // ui aim line
-                // aimLine.transform.position = this.transform.position;
-                // var positions = new Vector3[] { ballScreenPos, Input.mousePosition };
-                // aimLine.SetPositions(positions);
+                var mouseScreenPos = Input.mousePosition;
+                ballScreenPos.z = 1f;
+                mouseScreenPos.z = 1f;
+                var positions = new Vector3[]
+                {
+                    Camera.main.ScreenToWorldPoint(ballScreenPos),
+                    Camera.main.ScreenToWorldPoint(mouseScreenPos)
+                };
+                aimLine.SetPositions(positions);
+                aimLine.endColor = Color.Lerp(Color.green, Color.red, forceFactor);
 
                 // force direction
                 ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 plane.Raycast(ray, out var distance);
                 forceDirection = (this.transform.position - ray.GetPoint(distance));
                 forceDirection.Normalize();
+                Debug.Log(forceDirection);
 
                 //force factor
                 forceFactor = pointerDirection.magnitude * 2;
