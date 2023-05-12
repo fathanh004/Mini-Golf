@@ -42,7 +42,7 @@ public class PlayManager : MonoBehaviour
         }
         if (isBallTeleporting == false)
         {
-            Invoke("TeleportBallToLastPosition", 2);
+            Invoke("TeleportBallToLastPosition", 1.5f);
         }
         isBallOutside = true;
         isBallTeleporting = true;

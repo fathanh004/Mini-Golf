@@ -49,6 +49,8 @@ public class BallController : MonoBehaviour, IPointerDownHandler
                 var ballScreenPos = Camera.main.WorldToScreenPoint(this.transform.position);
                 var pointerDirection = ballViewportPos - mouseViewportPos;
                 pointerDirection.z = 0;
+                pointerDirection.z *= Camera.main.aspect;
+                pointerDirection.z = Mathf.Clamp(pointerDirection.z, -0.5f, 0.5f);
 
                 // ui aim line
                 var mouseScreenPos = Input.mousePosition;
