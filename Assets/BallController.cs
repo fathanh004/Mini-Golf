@@ -34,8 +34,16 @@ public class BallController : MonoBehaviour, IPointerDownHandler
             }
          } 
         */
+
+
         if (ShootingMode)
         {
+            if (Input.GetMouseButtonDown(1))
+            {
+                shootingMode = false;
+                aimLine.gameObject.SetActive(false);
+                aimWorld.gameObject.SetActive(false);
+            }
             if (Input.GetMouseButtonDown(0))
             {
                 aimLine.gameObject.SetActive(true);
@@ -105,13 +113,21 @@ public class BallController : MonoBehaviour, IPointerDownHandler
         if (shoot)
         {
             shoot = false;
-            rb.AddForce(forceDirection * force * forceFactor, ForceMode.Impulse);
+            AddForce(forceDirection * force * forceFactor, ForceMode.Impulse);
         }
 
         if (rb.velocity.sqrMagnitude < 0.01f && rb.velocity.sqrMagnitude > 0)
         {
             rb.velocity = Vector3.zero;
+            rb.useGravity = false;
         }
+    }
+
+
+    public void AddForce(Vector3 force, ForceMode forceMode = ForceMode.Impulse)
+    {
+        rb.useGravity = true;
+        rb.AddForce(force, forceMode);
     }
 
     public bool IsMoving()
