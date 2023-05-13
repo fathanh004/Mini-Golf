@@ -1,16 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PlayManager : MonoBehaviour
 {
     [SerializeField] BallController ballController;
     [SerializeField] CameraController camController;
+    [SerializeField] GameObject finishWindow;
+    [SerializeField] TMP_Text finishText;
+    [SerializeField] TMP_Text shootCountText;
 
     bool isBallOutside;
     bool isBallTeleporting;
     bool isBallGoal;
     Vector3 lastBallPosition;
+
+    private void OnEnable()
+    {
+        ballController.onBallShooted.AddListener(UpdateShootCount);
+    }
+
+    private void OnDisable()
+    {
+        ballController.onBallShooted.RemoveListener(UpdateShootCount);
+    }
 
     private void Update()
     {
@@ -23,6 +37,7 @@ public class PlayManager : MonoBehaviour
         && ballController.IsMoving() == false
         && ballController.ShootingMode == false
         && isBallOutside == false;
+        Debug.Log("Input Active: " + inputActive + " Is Moving: " + ballController.IsMoving() + " Shooting Mode: " + ballController.ShootingMode + " Is Ball Outside: " + isBallOutside);
         camController.SetInputActive(inputActive);
 
     }
@@ -31,12 +46,14 @@ public class PlayManager : MonoBehaviour
     {
         isBallGoal = true;
         ballController.enabled = false;
-        //TODO player win window popup
+
+        finishWindow.gameObject.SetActive(true);
+        finishText.text = "Level Complete!\n" + "Shoot Count: " + ballController.ShootCount;
     }
 
     public void OnBallOutside()
     {
-        if(isBallGoal)
+        if (isBallGoal)
         {
             return;
         }
@@ -61,5 +78,10 @@ public class PlayManager : MonoBehaviour
         rb.isKinematic = false;
         isBallOutside = false;
         isBallTeleporting = false;
+    }
+
+    public void UpdateShootCount(int shootCount)
+    {
+        shootCountText.text = "Shoot Count: " + shootCount;
     }
 }

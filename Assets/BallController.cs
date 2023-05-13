@@ -4,6 +4,7 @@ using UnityEngine;
 using Cinemachine;
 using System;
 using UnityEngine.EventSystems;
+using UnityEngine.Events;
 
 public class BallController : MonoBehaviour, IPointerDownHandler
 {
@@ -13,6 +14,8 @@ public class BallController : MonoBehaviour, IPointerDownHandler
     //[SerializeField] LayerMask layerMask;
     [SerializeField] LineRenderer aimLine;
     [SerializeField] Transform aimWorld;
+    [SerializeField] Transform spawnPoint;
+    [SerializeField] GameObject shootableIndicator;
     bool shoot;
     bool shootingMode;
     float forceFactor;
@@ -20,7 +23,12 @@ public class BallController : MonoBehaviour, IPointerDownHandler
     Plane plane;
     Vector3 forceDirection;
 
+    int shootCount;
+
     public bool ShootingMode { get => shootingMode; }
+    public int ShootCount { get => shootCount; }
+
+    public UnityEvent<int> onBallShooted = new UnityEvent<int>();
 
     private void Update()
     {
@@ -36,7 +44,7 @@ public class BallController : MonoBehaviour, IPointerDownHandler
         */
 
 
-        if (ShootingMode)
+        if (shootingMode)
         {
             if (Input.GetMouseButtonDown(1))
             {
@@ -94,6 +102,7 @@ public class BallController : MonoBehaviour, IPointerDownHandler
                 shootingMode = false;
                 aimLine.gameObject.SetActive(false);
                 aimWorld.gameObject.SetActive(false);
+                shootableIndicator.SetActive(false);
             }
         }
     }
@@ -114,19 +123,20 @@ public class BallController : MonoBehaviour, IPointerDownHandler
         {
             shoot = false;
             AddForce(forceDirection * force * forceFactor, ForceMode.Impulse);
+            shootCount++;
+            onBallShooted.Invoke(shootCount);
         }
 
         if (rb.velocity.sqrMagnitude < 0.01f && rb.velocity.sqrMagnitude > 0)
         {
             rb.velocity = Vector3.zero;
-            rb.useGravity = false;
+            rb.angularVelocity = Vector3.zero;
+            shootableIndicator.SetActive(true);
         }
     }
 
-
     public void AddForce(Vector3 force, ForceMode forceMode = ForceMode.Impulse)
     {
-        rb.useGravity = true;
         rb.AddForce(force, forceMode);
     }
 
@@ -135,4 +145,19 @@ public class BallController : MonoBehaviour, IPointerDownHandler
         return rb.velocity != Vector3.zero;
     }
 
+    public void Respawn()
+    {
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        this.transform.position = spawnPoint.position;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Projectile"))
+        {
+            //onHit.Invoke();
+            Respawn();
+        }
+    }
 }
