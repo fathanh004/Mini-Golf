@@ -102,7 +102,7 @@ public class BallController : MonoBehaviour, IPointerDownHandler
                 shootingMode = false;
                 aimLine.gameObject.SetActive(false);
                 aimWorld.gameObject.SetActive(false);
-                shootableIndicator.SetActive(false);
+                // shootableIndicator.SetActive(false);
             }
         }
     }
@@ -122,6 +122,7 @@ public class BallController : MonoBehaviour, IPointerDownHandler
         if (shoot)
         {
             shoot = false;
+
             AddForce(forceDirection * force * forceFactor, ForceMode.Impulse);
             shootCount++;
             onBallShooted.Invoke(shootCount);
@@ -131,8 +132,18 @@ public class BallController : MonoBehaviour, IPointerDownHandler
         {
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
-            shootableIndicator.SetActive(true);
+            // if (!IsMoving())
+            // {
+            //     shootableIndicator.SetActive(true);
+            // }
+            // else
+            // {
+            //     shootableIndicator.SetActive(false);
+            // }
+
         }
+
+
     }
 
     public void AddForce(Vector3 force, ForceMode forceMode = ForceMode.Impulse)
@@ -142,7 +153,7 @@ public class BallController : MonoBehaviour, IPointerDownHandler
 
     public bool IsMoving()
     {
-        return rb.velocity != Vector3.zero;
+        return rb.velocity.sqrMagnitude > 0.01f;
     }
 
     public void Respawn()

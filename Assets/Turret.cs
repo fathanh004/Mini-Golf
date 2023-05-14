@@ -11,6 +11,7 @@ public class Turret : MonoBehaviour
     [SerializeField] float lastShootTime; //Waktu terakhir turret menembak
     [SerializeField] Transform spawnProjectileLeft; //Titik spawn proyektil
     [SerializeField] Transform spawnProjectileRight; //Titik spawn proyektil
+    [SerializeField] AudioSource audioSource; //AudioSource untuk menampung audio tembakan
 
     void Update()
     {
@@ -29,6 +30,10 @@ public class Turret : MonoBehaviour
 
     void Shoot()
     {
+        if (!audioSource.isPlaying)
+        {
+            audioSource.Play(); //Memainkan audio tembakan
+        }
         //Membuat proyektil dari prefab yang sudah ditentukan
         GameObject projectileLeft = Instantiate(projectilePrefab, spawnProjectileLeft.position, Quaternion.identity);
         projectileLeft.GetComponent<Projectile>().target = player; //Mengatur target proyektil
