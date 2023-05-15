@@ -9617,7 +9617,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1748980340}
-  m_LocalRotation: {x: 0.093193054, y: 0.6909186, z: -0.0905405, w: 0.71116036}
+  m_LocalRotation: {x: 0.093193054, y: 0.6909186, z: -0.09054051, w: 0.7111603}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -10776,6 +10776,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Finished Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 2198666544130127299, guid: 64317d1e0e19f524fbf98a1b9ec5e9d7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2198666544130127327, guid: 64317d1e0e19f524fbf98a1b9ec5e9d7, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -10860,40 +10864,55 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3898000163647756662, guid: 64317d1e0e19f524fbf98a1b9ec5e9d7, type: 3}
+      propertyPath: m_Name
+      value: Finish Shot Count Text
+      objectReference: {fileID: 0}
     - target: {fileID: 3928134053191709527, guid: 64317d1e0e19f524fbf98a1b9ec5e9d7, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3928134053191709527, guid: 64317d1e0e19f524fbf98a1b9ec5e9d7, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3928134053191709527, guid: 64317d1e0e19f524fbf98a1b9ec5e9d7, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 125
       objectReference: {fileID: 0}
     - target: {fileID: 3928134053191709527, guid: 64317d1e0e19f524fbf98a1b9ec5e9d7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -100
       objectReference: {fileID: 0}
     - target: {fileID: 8530224192137605847, guid: 64317d1e0e19f524fbf98a1b9ec5e9d7, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8530224192137605847, guid: 64317d1e0e19f524fbf98a1b9ec5e9d7, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8530224192137605847, guid: 64317d1e0e19f524fbf98a1b9ec5e9d7, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 375
       objectReference: {fileID: 0}
     - target: {fileID: 8530224192137605847, guid: 64317d1e0e19f524fbf98a1b9ec5e9d7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 64317d1e0e19f524fbf98a1b9ec5e9d7, type: 3}
+--- !u!114 &2198666545081954864 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6309137981279450142, guid: 64317d1e0e19f524fbf98a1b9ec5e9d7, type: 3}
+  m_PrefabInstance: {fileID: 2198666545081954863}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3072601954181870955
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11870,7 +11889,7 @@ PrefabInstance:
     - target: {fileID: 5227601388671276186, guid: 552ebe7a88fd5724386158de3f8cf700, type: 3}
       propertyPath: finishText
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2198666545081954864}
     - target: {fileID: 5227601388671276186, guid: 552ebe7a88fd5724386158de3f8cf700, type: 3}
       propertyPath: finishWindow
       value: 

@@ -48,7 +48,7 @@ public class PlayManager : MonoBehaviour
         ballController.enabled = false;
 
         finishWindow.gameObject.SetActive(true);
-        finishText.text = "Level Complete!\n" + "Shoot Count: " + ballController.ShootCount;
+        finishText.text = "Shoot Count: " + ballController.ShootCount;
     }
 
     public void OnBallOutside()
