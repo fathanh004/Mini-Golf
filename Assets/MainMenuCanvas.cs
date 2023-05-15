@@ -26,6 +26,10 @@ public class MainMenuCanvas : MonoBehaviour
 
     public void Play()
     {
+        if(Time.timeScale == 0)
+        {
+            Time.timeScale = 1;
+        }
         mainMenuPanel.SetActive(false);
         levelSelectorPanel.SetActive(true);
     }
